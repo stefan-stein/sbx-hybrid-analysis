@@ -1,0 +1,8 @@
+# Analysis inputs and outputs may contain malware or sensitive data.
+/samples/
+/reports/
+/analysis-report*.md
+
+# Python tooling
+__pycache__/
+*.py[cod]

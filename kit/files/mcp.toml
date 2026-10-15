@@ -1,0 +1,11 @@
+[mcp_servers.hybrid-analysis]
+command = "/opt/hybrid-analysis/venv/bin/python"
+args = ["/usr/local/lib/malware-sandbox/run-mcp.py"]
+env_vars = ["HYBRID_ANALYSIS_KEY", "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY", "http_proxy", "https_proxy", "all_proxy", "no_proxy", "SSL_CERT_FILE", "SSL_CERT_DIR", "REQUESTS_CA_BUNDLE", "CURL_CA_BUNDLE"]
+startup_timeout_sec = 30
+tool_timeout_sec = 900
+required = true
+
+[mcp_servers.hybrid-analysis.env]
+MCP_TRANSPORT = "stdio"
+HYBRID_ANALYSIS_API_URL = "https://hybrid-analysis.com/api/v2"

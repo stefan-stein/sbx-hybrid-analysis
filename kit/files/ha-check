@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /opt/hybrid-analysis/venv/bin/python /usr/local/lib/malware-sandbox/check.py "$@"
