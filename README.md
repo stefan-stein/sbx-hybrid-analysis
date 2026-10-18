@@ -30,7 +30,7 @@ first run builds a mountless sandbox and opens Bash. No host directory is
 mounted. From another host terminal, copy inputs into it:
 
 ```sh
-sbx cp ./samples malware-sandbox-v1:/home/agent/workspace/
+sbx cp ./samples malware-sandbox-v1-1:/home/agent/workspace/
 ```
 
 ```sh
@@ -43,7 +43,7 @@ Copy reports to a disposable host directory and treat them as untrusted:
 
 ```sh
 mkdir -p ./reports
-sbx cp malware-sandbox-v1:/home/agent/workspace/reports/ ./reports/
+sbx cp malware-sandbox-v1-1:/home/agent/workspace/reports/ ./reports/
 ```
 
 Rerun `start.sh` to return to the same sandbox. Files inside it persist until
@@ -59,7 +59,7 @@ For coding or trusted files, mount a host directory read-write:
 
 If the path is omitted, the current directory is mounted. Changes made in the
 sandbox immediately affect the host directory. Do not use this mode for
-untrusted files. Its default sandbox name is `malware-sandbox-v1-rw`, so it
+untrusted files. Its default sandbox name is `malware-sandbox-v1-1-rw`, so it
 cannot accidentally reuse the mountless sandbox.
 
 ## Architecture
@@ -124,8 +124,10 @@ not a network service; no MCP port is exposed.
 
 The MCP process sends the `proxy-managed` key sentinel in the `api-key` HTTP
 header. Docker replaces it with the Hybrid Analysis key stored on the host.
-`kit/files/run-mcp.py` also redirects upstream logs to stderr so stdout remains
-a valid MCP JSON-RPC stream.
+The server supports v2 sandbox analysis plus the Labs API for quick scans,
+sample search and overview, and YARA hunting rules. `kit/files/run-mcp.py` also
+redirects upstream logs to stderr so stdout remains a valid MCP JSON-RPC
+stream.
 
 ### Agent context
 
@@ -137,7 +139,8 @@ URLs should be submitted only when requested.
 
 `ha-check` launches `kit/files/check.py` inside the MCP Python environment.
 
-- `ha-check` checks the credential sentinel, MCP handshake, and tool list.
+- `ha-check` checks the credential sentinel, MCP handshake, and complete
+  expected tool list.
 - `ha-check --live` also calls Hybrid Analysis through the credential proxy
   and runs the MCP `validate_api_key` tool.
 
@@ -156,7 +159,7 @@ Runtime HTTPS is limited to the Hybrid Analysis and OpenAI/ChatGPT hosts in
 precedence. Inspect the effective policy with:
 
 ```sh
-sbx policy ls malware-sandbox-v1 --type network --wide
+sbx policy ls malware-sandbox-v1-1 --type network --wide
 ```
 
 ## Lifecycle
@@ -165,17 +168,18 @@ Safe and convenience modes use different sandbox names because workspace
 configuration is fixed when a sandbox is created.
 
 ```sh
-sbx stop malware-sandbox-v1
+sbx stop malware-sandbox-v1-1
 ./start.sh
-sbx rm malware-sandbox-v1  # Deletes unexported sandbox files
+sbx rm malware-sandbox-v1-1  # Deletes unexported sandbox files
 
-sbx stop malware-sandbox-v1-rw
+sbx stop malware-sandbox-v1-1-rw
 ./start.sh --rw /path/to/project
-sbx rm malware-sandbox-v1-rw  # Mounted host files remain
+sbx rm malware-sandbox-v1-1-rw  # Mounted host files remain
 ```
 
 An existing sandbox keeps its original image, authentication mode, and
-workspace configuration. Use a new `SANDBOX_NAME` after changing any of them.
+workspace configuration. Use a new `SANDBOX_NAME` after making
+further kit changes that need a rebuilt image.
 
 ## Build notes
 
@@ -193,12 +197,12 @@ policy, not the workload's runtime policy.
 
 ## Versions
 
-- Project release: v1.0.0
+- Project release: v1.1.0
 - Docker Sandbox workload format: v3
 - Codex CLI: 0.162.1
 - uv image: `ghcr.io/astral-sh/uv:0.12.0`
 - Python: 3.13
-- Hybrid Analysis MCP revision: `37404f37d48d1c29409bda49f0f95f658bc205a9`
+- Hybrid Analysis MCP revision: `bcd1aac6d41c2127d10a017967bdf7d612cedfa1`
 
 References: [Docker Sandbox Kit v3](https://docs.docker.com/ai/sandboxes/customize/author/),
 [Docker's Codex workload](https://github.com/docker/sandbox-kit-spec/tree/main/examples/codex),

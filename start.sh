@@ -21,9 +21,9 @@ case ${1:-} in
 esac
 
 if [[ $mode == safe ]]; then
-  sandbox_name=${SANDBOX_NAME:-malware-sandbox-v1}
+  sandbox_name=${SANDBOX_NAME:-malware-sandbox-v1-1}
 else
-  sandbox_name=${SANDBOX_NAME:-malware-sandbox-v1-rw}
+  sandbox_name=${SANDBOX_NAME:-malware-sandbox-v1-1-rw}
 fi
 
 if ! command -v sbx >/dev/null 2>&1; then

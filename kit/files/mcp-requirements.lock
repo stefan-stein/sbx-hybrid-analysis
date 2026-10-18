@@ -1,14 +1,14 @@
 # Resolved for Python 3.13 from Hybrid Analysis MCP revision
-# 37404f37d48d1c29409bda49f0f95f658bc205a9.
+# bcd1aac6d41c2127d10a017967bdf7d612cedfa1.
 annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.15.1
 attrs==26.1.0
-authlib==1.8.0
+authlib==1.9.1
 beartype==0.23.1
 burner-redis==0.1.7
-cachetools==7.2.1
-certifi==2026.7.22
+cachetools==7.2.3
+certifi==2026.10.18
 cffi==2.1.1
 click==8.5.0
 cloudpickle==3.1.2
@@ -40,22 +40,22 @@ keyring==25.7.0
 lupa==2.8
 markdown-it-py==4.2.0
 mcp==1.30.0
-mcp-hybrid-analysis @ git+https://github.com/PayloadSecurity/hybrid-analysis-mcp-server.git@37404f37d48d1c29409bda49f0f95f658bc205a9
+mcp-hybrid-analysis @ git+https://github.com/PayloadSecurity/hybrid-analysis-mcp-server.git@bcd1aac6d41c2127d10a017967bdf7d612cedfa1
 mdurl==0.1.2
-more-itertools==11.1.0
+more-itertools==11.2.1
 openapi-pydantic==0.6.0
 opentelemetry-api==1.45.1
 packaging==26.3
 pathable==0.6.0
 pathvalidate==3.3.1
-platformdirs==4.13.0
+platformdirs==4.13.4
 prometheus-client==0.26.0
 py-key-value-aio==0.3.0
 py-key-value-shared==0.3.0
 pycparser==3.11
 pydantic==2.14.1
 pydantic-core==2.50.1
-pydantic-settings==2.15.0
+pydantic-settings==2.16.0
 pydocket==0.27.0
 pygments==2.21.0
 pyjwt==2.15.1
@@ -73,7 +73,7 @@ secretstorage==3.5.0
 shellingham==1.5.4
 sortedcontainers==2.4.0
 sse-starlette==3.5.0
-starlette==1.7.0
+starlette==1.9.0
 truststore==0.10.5
 typer==0.27.3
 typing-extensions==4.16.0

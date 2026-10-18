@@ -8,4 +8,4 @@ required = true
 
 [mcp_servers.hybrid-analysis.env]
 MCP_TRANSPORT = "stdio"
-HYBRID_ANALYSIS_API_URL = "https://hybrid-analysis.com/api/v2"
+HYBRID_ANALYSIS_BASE_URL = "https://hybrid-analysis.com"

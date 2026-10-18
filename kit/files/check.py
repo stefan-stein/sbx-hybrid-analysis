@@ -46,14 +46,34 @@ async def main(live):
         env={
             **os.environ,
             "MCP_TRANSPORT": "stdio",
-            "HYBRID_ANALYSIS_API_URL": "https://hybrid-analysis.com/api/v2",
+            "HYBRID_ANALYSIS_BASE_URL": "https://hybrid-analysis.com",
         },
     )
     async with stdio_client(parameters) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
             names = {tool.name for tool in (await session.list_tools()).tools}
-            expected = {"validate_api_key", "search_by_hash", "submit_file", "submit_url"}
+            expected = {
+                "validate_api_key",
+                "search_by_hash",
+                "search_by_terms",
+                "get_report_summary",
+                "get_report_state",
+                "wait_for_report",
+                "submit_file",
+                "submit_url",
+                "quick_scan_file",
+                "get_quick_scan",
+                "search_labs",
+                "get_labs_search_results",
+                "get_labs_sample_overview",
+                "get_yara_matches",
+                "list_yara_rules",
+                "get_yara_rule",
+                "create_yara_rule",
+                "update_yara_rule",
+                "delete_yara_rule",
+            }
             if not expected <= names:
                 raise SystemExit("The MCP server did not expose the expected tools.")
             print(f"PASS: stdio MCP handshake ({len(names)} tools)")
